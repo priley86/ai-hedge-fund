@@ -65,12 +65,12 @@ def test_unlisted_model_falls_back_to_anthropic(keyed):
 
 
 @pytest.mark.parametrize("provider", ["OpenRouter", "openrouter", "OPENROUTER"])
-def test_provider_env_overrides_registry_for_custom_model(provider, monkeypatch, keyed):
+def test_provider_env_overrides_registry(provider, monkeypatch, keyed):
     monkeypatch.setenv("HEDGE_FUND_LLM_PROVIDER", provider)
 
-    llm = make_llm("z-ai/glm-5.2")
+    llm = make_llm("gpt-5.5")
 
-    assert llm.model == "z-ai/glm-5.2"
+    assert llm.model == "gpt-5.5"
     assert str(llm._chat.openai_api_base).rstrip("/") == "https://openrouter.ai/api/v1"
 
 
